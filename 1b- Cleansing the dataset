@@ -1,0 +1,17 @@
+from sklearn.impute import SimpleImputer
+
+# Impute missing values with the mean
+imputer = SimpleImputer(strategy='mean')
+undamaged_data_imputed = pd.DataFrame(imputer.fit_transform(undamaged_data), columns=undamaged_data.columns)
+damaged_data_imputed = pd.DataFrame(imputer.transform(damaged_data), columns=damaged_data.columns)
+
+# Detect and handle outliers using EllipticEnvelope
+outlier_detector = EllipticEnvelope(contamination=0.1)
+outliers_undamaged = outlier_detector.fit_predict(undamaged_data_imputed) == 1
+outliers_damaged = outlier_detector.fit_predict(damaged_data_imputed) == 1
+
+# Filter out outliers
+undamaged_data_clean = undamaged_data_imputed[outliers_undamaged]
+damaged_data_clean = damaged_data_imputed[outliers_damaged]
+
+undamaged_data_clean.shape, damaged_data_clean.shape
