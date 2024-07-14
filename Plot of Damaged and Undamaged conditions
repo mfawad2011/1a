@@ -1,0 +1,13 @@
+import seaborn as sns
+from mpl_toolkits.mplot3d import Axes3D
+
+# Plotting the 3D scatter plot for undamaged data
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(undamaged_data['Frequency1'], undamaged_data['Frequency2'], undamaged_data['Frequency3'], c='b', label='Undamaged')
+ax.scatter(damaged_data['Frequency1'], damaged_data['Frequency2'], damaged_data['Frequency3'], c='r', label='Damaged')
+ax.set_xlabel('Frequency 1')
+ax.set_ylabel('Frequency 2')
+ax.set_zlabel('Frequency 3')
+plt.legend()
+plt.show()
